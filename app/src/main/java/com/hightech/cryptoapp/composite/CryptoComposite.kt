@@ -7,16 +7,21 @@ import com.hightech.cryptoapp.crypto.feed.domain.CryptoFeedResult
 import com.hightech.cryptoapp.crypto.feed.http.usecases.RemoteCryptoFeedLoader
 import com.hightech.cryptoapp.crypto.feed.local.usecase.LocalCryptoFeedLoader
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flow
 
-class CryptoComposite(private val remote:CryptoFeedLoader ,private val local: CryptoFeedLoader,val context: Context):CryptoFeedLoader {
+class CryptoComposite(private val remote:CryptoFeedLoader ,private val local: CryptoFeedLoader):CryptoFeedLoader {
     override fun load(): Flow<CryptoFeedResult> {
-        val connect:ConnectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val info = connect.activeNetwork
-        val actNw = connect.getNetworkCapabilities(info)
-        return if (actNw!=null){
-            remote.load()
-        }else{
-            local.load()
+
+        return flow {
+            val result = remote.load().first()
+            if( result is CryptoFeedResult.Failure){
+                emit(local.load().first())
+            }else{
+                emit(result)
+            }
         }
     }
 

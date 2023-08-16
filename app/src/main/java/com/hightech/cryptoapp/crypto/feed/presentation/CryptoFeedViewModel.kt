@@ -120,7 +120,7 @@ class CryptoFeedViewModel constructor(
             return viewModelFactory {
                 addInitializer(CryptoFeedViewModel::class){
                     CryptoFeedViewModel(
-                        CryptoComposite(RemoteCryptoFeedLoaderFactory.createRemoteCryptoFeedLoader(app),LocalCryptoFeedLoaderFactory.createLocalCryptoFeedLoader(App.getDb(app)),app)
+                        CryptoComposite(RemoteCryptoFeedLoaderFactory.createRemoteCryptoFeedLoader(app),LocalCryptoFeedLoaderFactory.createLocalCryptoFeedLoader(App.getDb(app)))
                     )
                 }
             }
