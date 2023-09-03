@@ -6,7 +6,10 @@ import androidx.room.PrimaryKey
 @Entity
 data class CryptoEntity(
     @PrimaryKey
-    val id:Int = 1,
-    val json:String,
-    val req_date:Long
+    var id:String,
+    var name:String,
+    var fullName:String,
+    var image:String,
+    var price:Double,
+    var changePctDay:Float
 )

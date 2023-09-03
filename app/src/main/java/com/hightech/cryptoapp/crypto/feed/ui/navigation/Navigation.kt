@@ -3,7 +3,7 @@ package com.hightech.cryptoapp.crypto.feed.ui.navigation
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
-import com.hightech.cryptoapp.crypto.feed.domain.CryptoFeedItem
+import com.hightech.domain.CryptoFeedItem
 import com.hightech.cryptoapp.crypto.feed.ui.CryptoFeedRoute
 
 const val cryptoGraphRoute = "crypto_graph_route"

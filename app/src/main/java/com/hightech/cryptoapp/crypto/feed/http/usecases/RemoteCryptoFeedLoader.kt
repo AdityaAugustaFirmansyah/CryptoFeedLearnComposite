@@ -2,19 +2,17 @@ package com.hightech.cryptoapp.crypto.feed.http.usecases
 
 import android.util.Log
 import com.hightech.cryptoapp.crypto.feed.domain.CryptoFeedItemsMapper
-import com.hightech.cryptoapp.crypto.feed.domain.CryptoFeedLoader
-import com.hightech.cryptoapp.crypto.feed.domain.CryptoFeedResult
+import com.hightech.domain.CryptoFeedLoader
+import com.hightech.domain.CryptoFeedResult
 import com.hightech.cryptoapp.crypto.feed.http.ConnectivityException
 import com.hightech.cryptoapp.crypto.feed.http.CryptoFeedHttpClient
 import com.hightech.cryptoapp.crypto.feed.http.HttpClientResult
 import com.hightech.cryptoapp.crypto.feed.http.InvalidDataException
-import com.hightech.cryptoapp.crypto.feed.local.usecase.LocalCryptoFeedLoader
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
 class RemoteCryptoFeedLoader constructor(
     private val cryptoFeedHttpClient: CryptoFeedHttpClient,
-    private val localCryptoFeedLoader: LocalCryptoFeedLoader,
 ) :
     CryptoFeedLoader {
     override fun load(): Flow<CryptoFeedResult> = flow {
@@ -23,7 +21,6 @@ class RemoteCryptoFeedLoader constructor(
                 is HttpClientResult.Success -> {
                     val cryptoFeed = result.root.data
                     if (cryptoFeed.isNotEmpty()) {
-                        localCryptoFeedLoader.insert(result.root.data)
                         emit(CryptoFeedResult.Success(CryptoFeedItemsMapper.map(cryptoFeed)))
                     } else {
                         emit(CryptoFeedResult.Success(emptyList()))
