@@ -1,7 +1,7 @@
 package com.hightech.cryptoapp.main.factories
 
-import com.hightech.cryptoapp.frameworks.HttpFactory
-import com.hightech.cryptoapp.crypto.feed.http.CryptoFeedService
+import com.hightech.data.frameworks.HttpFactory
+import com.hightech.data.http.CryptoFeedService
 
 class CryptoFeedServiceFactory {
     companion object {

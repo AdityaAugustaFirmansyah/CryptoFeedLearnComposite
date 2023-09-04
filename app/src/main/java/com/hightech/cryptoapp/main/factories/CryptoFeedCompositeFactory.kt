@@ -1,7 +1,7 @@
 package com.hightech.cryptoapp.main.factories
 
 import android.content.Context
-import com.hightech.cryptoapp.App
+import com.hightech.data.App
 import com.hightech.domain.CryptoFeedLoader
 import com.hightech.cryptoapp.main.composite.CryptoComposite
 import com.hightech.cryptoapp.main.decorator.createCryptoDecoratorsFactory

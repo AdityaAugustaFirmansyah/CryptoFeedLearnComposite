@@ -1,7 +1,7 @@
 package com.hightech.cryptoapp.main.factories
 
 import com.hightech.domain.CryptoFeedLoader
-import com.hightech.cryptoapp.crypto.feed.http.usecases.RemoteCryptoFeedLoader
+import com.hightech.data.http.usecases.RemoteCryptoFeedLoader
 
 class RemoteCryptoFeedLoaderFactory {
     companion object {

@@ -24,14 +24,15 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.hightech.domain.CryptoFeedItem
-import com.hightech.cryptoapp.crypto.feed.presentation.CryptoFeedUiState
-import com.hightech.cryptoapp.crypto.feed.presentation.CryptoFeedViewModel
+import com.hightech.presentation.CryptoFeedUiState
+import com.hightech.presentation.CryptoFeedViewModel
 import com.hightech.cryptoapp.crypto.feed.ui.components.CryptoFeedList
+import com.hightech.cryptoapp.main.factories.CryptoViewModelFactory
 import com.hightech.cryptoapp.theme.Purple40
 
 @Composable
 fun CryptoFeedRoute(
-    viewModel: CryptoFeedViewModel = viewModel(factory = CryptoFeedViewModel.factory(LocalContext.current)),
+    viewModel: CryptoFeedViewModel = viewModel(factory = CryptoViewModelFactory.factory(LocalContext.current)),
     onNavigateToCryptoDetails: (CryptoFeedItem) -> Unit
 ) {
     val cryptoFeedUiState by viewModel.cryptoFeedUiState.collectAsStateWithLifecycle()
@@ -49,7 +50,7 @@ fun CryptoFeedRoute(
 @Composable
 fun CryptoFeedScreen(
     modifier: Modifier = Modifier,
-    cryptoFeedUiState: CryptoFeedUiState,
+    cryptoFeedUiState: com.hightech.presentation.CryptoFeedUiState,
     onRefreshCryptoFeed: () -> Unit,
     onNavigateToCryptoDetails: (CryptoFeedItem) -> Unit
 ) {
@@ -81,8 +82,8 @@ fun CryptoFeedScreen(
             pullRefreshState = pullRefreshState,
             loading = cryptoFeedUiState.isLoading,
             empty = when (cryptoFeedUiState) {
-                is CryptoFeedUiState.HasCryptoFeed -> false
-                is CryptoFeedUiState.NoCryptoFeed -> cryptoFeedUiState.isLoading
+                is com.hightech.presentation.CryptoFeedUiState.HasCryptoFeed -> false
+                is com.hightech.presentation.CryptoFeedUiState.NoCryptoFeed -> cryptoFeedUiState.isLoading
             },
             emptyContent = {
                 Box(
@@ -99,7 +100,7 @@ fun CryptoFeedScreen(
             },
             content = {
                 when (cryptoFeedUiState) {
-                    is CryptoFeedUiState.HasCryptoFeed -> {
+                    is com.hightech.presentation.CryptoFeedUiState.HasCryptoFeed -> {
                         CryptoFeedList(
                             contentModifier = contentModifier,
                             items = cryptoFeedUiState.cryptoFeeds,
@@ -107,7 +108,7 @@ fun CryptoFeedScreen(
                         )
                     }
 
-                    is CryptoFeedUiState.NoCryptoFeed -> {
+                    is com.hightech.presentation.CryptoFeedUiState.NoCryptoFeed -> {
                         if (cryptoFeedUiState.failed.isEmpty()) {
                             Box(
                                 modifier = modifier
