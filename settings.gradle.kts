@@ -14,6 +14,7 @@ dependencyResolutionManagement {
 }
 rootProject.name = "CryptoFeed"
 include(":app")
-include(":domain")
-include(":data")
-include(":presentation")
+include(":cryptofeed:domain")
+include(":cryptofeed:presentation")
+include(":cryptofeed:local")
+include(":cryptofeed:remote")

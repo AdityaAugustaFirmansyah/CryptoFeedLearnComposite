@@ -1,12 +1,12 @@
 package com.hightech.cryptoapp.main.factories
 
-import com.hightech.data.http.CryptoFeedHttpClient
-import com.hightech.data.http.CryptoFeedRetrofitHttpClient
+import com.hightech.remote.CryptoFeedHttpClient
+import com.hightech.remote.CryptoFeedRetrofitHttpClient
 
 class CryptoFeedHttpClientFactory {
     companion object {
-        fun createCryptoFeedHttpClient(): com.hightech.data.http.CryptoFeedHttpClient {
-            return CryptoFeedRetrofitHttpClient(
+        fun createCryptoFeedHttpClient(): com.hightech.remote.CryptoFeedHttpClient {
+            return com.hightech.remote.CryptoFeedRetrofitHttpClient(
                 CryptoFeedServiceFactory.createCryptoFeedService()
             )
         }
